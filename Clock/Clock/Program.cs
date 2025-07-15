@@ -15,7 +15,7 @@ namespace Clock
         public void Starting() {
             while (true)
             {
-                Console.WriteLine("1 - Clock\n2 - Stopwatch\n3 - Timer");
+                Console.WriteLine("1 - Clock\n2 - Stopwatch\n3 - Timer\nSpacebar - exit");
                 char choise = '-';
                 var key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.D1)
@@ -29,6 +29,10 @@ namespace Clock
                 else if (key.Key == ConsoleKey.D3)
                 {
                     choise = '3';
+                }
+                else if (key.Key == ConsoleKey.Spacebar)
+                {
+                    choise = '4';
                 }
                 switch (choise)
                 {
@@ -46,6 +50,9 @@ namespace Clock
                         Console.Clear();
                         Timer timer = new Timer();
                         timer.Start();
+                        break;
+                    case '4':
+                        Environment.Exit(0);
                         break;
                     case ' ':
                         Console.Clear();
