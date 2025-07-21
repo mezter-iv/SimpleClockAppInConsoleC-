@@ -6,3 +6,11 @@ D:\ItStepHW\C++\Homeworks\Clock\Clock\obj\Debug\Clock.csproj.CoreCompileInputs.c
 D:\ItStepHW\C++\Homeworks\Clock\Clock\obj\Debug\Clock.exe
 D:\ItStepHW\C++\Homeworks\Clock\Clock\obj\Debug\Clock.pdb
 D:\ItStepHW\C++\Homeworks\Clock\Clock\obj\Debug\Clock.exe.config
+C:\Users\vovan\OneDrive\Документы\GitHub\SimpleClockAppInConsoleC-\Clock\Clock\bin\Debug\Clock.exe.config
+C:\Users\vovan\OneDrive\Документы\GitHub\SimpleClockAppInConsoleC-\Clock\Clock\bin\Debug\Clock.exe
+C:\Users\vovan\OneDrive\Документы\GitHub\SimpleClockAppInConsoleC-\Clock\Clock\bin\Debug\Clock.pdb
+C:\Users\vovan\OneDrive\Документы\GitHub\SimpleClockAppInConsoleC-\Clock\Clock\obj\Debug\Clock.csproj.AssemblyReference.cache
+C:\Users\vovan\OneDrive\Документы\GitHub\SimpleClockAppInConsoleC-\Clock\Clock\obj\Debug\Clock.exe.config
+C:\Users\vovan\OneDrive\Документы\GitHub\SimpleClockAppInConsoleC-\Clock\Clock\obj\Debug\Clock.csproj.CoreCompileInputs.cache
+C:\Users\vovan\OneDrive\Документы\GitHub\SimpleClockAppInConsoleC-\Clock\Clock\obj\Debug\Clock.exe
+C:\Users\vovan\OneDrive\Документы\GitHub\SimpleClockAppInConsoleC-\Clock\Clock\obj\Debug\Clock.pdb

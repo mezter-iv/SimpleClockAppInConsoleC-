@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Clock"
+    "\\Clock",
+    "\\Clock\\Clock"
   ],
-  "SelectedNode": "\\Clock\\Clock.sln",
+  "SelectedNode": "\\Clock\\Clock\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
