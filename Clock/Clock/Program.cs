@@ -164,52 +164,62 @@ namespace Clock
     public class Timer {
         DateTime DT;
         DateTime Time;
-        private static bool IsExists = true;
+        private bool _isRunning = true;
         public Timer() { DT = DateTime.Today; }
         public void Start()
         {
             Thread plaY = new Thread(PlayMusic);
-            Console.Write("Set timer (00:00:00): ");
-            try {
-                Time = DateTime.ParseExact(Console.ReadLine(), "HH:mm:ss", CultureInfo.InvariantCulture);
-            }
-            catch { 
-                Console.WriteLine("Incorrect time");
-                return;
-            }
-            while (IsExists)
-            {
-                if (CheckTimer()) {
-                    plaY.Start();
-                    Console.WriteLine("Timer's gone!");
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                    return;
+            Console.Write("Set timer (00:00:00 or write Esc to Exit): ");
+            string Getting = Console.ReadLine();
+            if (Getting != "Esc") {
+                try
+                {
+                    Time = DateTime.ParseExact(Getting, "HH:mm:ss", CultureInfo.InvariantCulture);
+                    while (_isRunning)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Escape to Exit");
+                        if (Console.KeyAvailable)
+                        {
+                            ConsoleKeyInfo key = Console.ReadKey(true);
+                            key = Console.ReadKey(true);
+                            if (key.Key == ConsoleKey.Escape)
+                            {
+                                _isRunning = false;
+                            }
+                            while (Console.KeyAvailable)
+                            {
+                                Console.ReadKey(true);
+                            }
+                        }
+                        if (CheckTimer())
+                        {
+                            plaY.Start();
+                            Console.WriteLine("Timer's gone!");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                            return;
+                        }
+                        Console.WriteLine($"{Time.Hour:D2}:{Time.Minute:D2}:{Time.Second:D2}");
+                        Console.WriteLine($"{DT.Hour:D2}:{DT.Minute:D2}:{DT.Second:D2}");
+                        DT = DT.AddSeconds(1);
+                        Thread.Sleep(1000);
+                        Console.Clear();
+                    }
                 }
-                Thread thread = new Thread(InThread);
-                thread.Start();
-                Console.WriteLine($"{Time.Hour}:{Time.Minute}:{Time.Second}");
-                Console.WriteLine($"{DT.Hour}:{DT.Minute}:{DT.Second}");
-                DT = DT.AddSeconds(1);
-                Thread.Sleep(1000);
-                Console.Clear();
+                catch
+                {
+                    Console.WriteLine("Incorrect time");
+                    return;
+                }              
             }
+            return;
         }
         public bool CheckTimer() {
             if (Time == DT) {
                 return true;
             }
             return false;
-        }
-        public void InThread()
-        {
-            var key = Console.ReadKey(true);
-            if (key.Key == ConsoleKey.Escape)
-            {
-                IsExists = false;
-                return;
-            }
-            return;
         }
         public void PlayMusic()
         {
