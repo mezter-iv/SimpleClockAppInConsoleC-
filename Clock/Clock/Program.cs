@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Clock
             string choice = "";
             while (true)
             {
-                Console.WriteLine("1 - Clock\n2 - Stopwatch\n3 - Timer\nSpacebar - exit");
+                Console.WriteLine("1 - Clock\n2 - Stopwatch\n3 - Timer\n4 - Check for flags\n5 - Clean Flags\nSpacebar - exit");
                 var key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.D1)
                 {
@@ -30,9 +31,17 @@ namespace Clock
                 {
                     choice = "3";
                 }
-                else if (key.Key == ConsoleKey.Spacebar)
+                else if (key.Key == ConsoleKey.D4)
                 {
                     choice = "4";
+                }
+                else if (key.Key == ConsoleKey.D5)
+                {
+                    choice = "5";
+                }
+                else if (key.Key == ConsoleKey.Spacebar)
+                {
+                    choice = "6";
                 }
                 while (Console.KeyAvailable)
                 {
@@ -44,18 +53,55 @@ namespace Clock
                         Console.Clear();
                         Clock clock = new Clock();
                         clock.Start();
+                        Console.Clear();
                         break;
                     case "2":
                         Console.Clear();
                         Stopwatch stopwatch = new Stopwatch();
                         stopwatch.Start();
+                        Console.Clear();
                         break;
                     case "3":
                         Console.Clear();
                         Timer timer = new Timer();
                         timer.Start();
+                        Console.Clear();
                         break;
                     case "4":
+                        Console.Clear(); 
+                        try
+                        {
+                            using (var sr = new StreamReader($"Flags.txt"))
+                            {
+                                Console.WriteLine("--- Recorded Flags ---"); 
+                                string text;
+                                while ((text = sr.ReadLine()) != null)
+                                {
+                                    Console.WriteLine(text);
+                                }
+                                Console.WriteLine("----------------------");
+                            }
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            Console.WriteLine("The file 'Flags.txt' was not found. Have you recorded any flags yet?");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"An error occurred while reading the file: {ex.Message}");
+                        }
+
+                        Console.WriteLine("\nPress any key to return to the main menu...");
+                        Console.ReadKey(true);
+                        Console.Clear();
+                        break;
+                    case "5":
+                        Console.Clear();
+                        using (var fs = new FileStream(@"Flags.txt", FileMode.Truncate))
+                        {
+                        }
+                        break;
+                    case "6":
                         Environment.Exit(0);
                         break;
                     default:
@@ -119,7 +165,7 @@ namespace Clock
             {
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
-                Console.WriteLine("Escape to Exit (Spacebar to Toggle Pause)");
+                Console.WriteLine("Escape to Exit (Spacebar to Toggle Pause / Enter for Making a Flag)");
 
                 TimeSpan elapsed = _internalStopwatch.Elapsed;
 
@@ -133,7 +179,8 @@ namespace Clock
                     {
                         _isRunning = false;
                     }
-                    else if (key.Key == ConsoleKey.Spacebar) {
+                    else if (key.Key == ConsoleKey.Spacebar)
+                    {
                         if (_internalStopwatch.IsRunning)
                         {
                             _internalStopwatch.Stop();
@@ -147,7 +194,29 @@ namespace Clock
                             Console.WriteLine("                                ");
                         }
                     }
-                    while (Console.KeyAvailable)
+                    else if (key.Key == ConsoleKey.Enter) {
+                        if (_internalStopwatch.IsRunning)
+                        {
+                            try
+                            {
+                                using (var sr = new StreamWriter("Flags.txt", true))
+                                {
+                                    Console.WriteLine($"Flag Added with {elapsed.Hours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}.{elapsed.Milliseconds:D3}");
+                                    sr.WriteLine($"{elapsed.Hours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}.{elapsed.Milliseconds:D3}");
+                                }
+                            }
+                            catch {
+                                Console.WriteLine("Cannot to open a file");
+                            }
+                        }
+                        else
+                        {
+                            _internalStopwatch.Start();
+                            Console.SetCursorPosition(0, 2);
+                            Console.WriteLine("                                ");
+                        }
+                    }
+                        while (Console.KeyAvailable)
                         {
                             Console.ReadKey(true);
                         }
