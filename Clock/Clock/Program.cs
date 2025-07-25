@@ -13,11 +13,11 @@ using System.Timers;
 namespace Clock
 {
     public class Start {
-        public void Starting() {
+        public Start() {
             string choice = "";
             while (true)
             {
-                Console.WriteLine("1 - Clock\n2 - Stopwatch\n3 - Timer\n4 - Check for flags\n5 - Clean Flags\nSpacebar - exit");
+                Console.WriteLine("--- Simple Watch App ---\n1 - Clock\n2 - Stopwatch\n3 - Timer\n4 - Check for flags\n5 - Clean Flags\nSpacebar - exit\n------------------------");
                 var key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.D1)
                 {
@@ -122,10 +122,10 @@ namespace Clock
             while (_isRunning)
             {
                 Console.Clear();
-                Console.WriteLine("Escape to Exit");
+                Console.WriteLine("--- Simple Clock ---\nEscape to Exit");
 
                 DateTime currentTime = DateTime.Now;
-                Console.WriteLine($"{currentTime.Hour:D2}:{currentTime.Minute:D2}:{currentTime.Second:D2}");
+                Console.WriteLine($"{currentTime.Hour:D2}:{currentTime.Minute:D2}:{currentTime.Second:D2}\n--------------------");
 
                 if (Console.KeyAvailable)
                 {
@@ -165,12 +165,12 @@ namespace Clock
             {
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
-                Console.WriteLine("Escape to Exit (Spacebar to Toggle Pause / Enter for Making a Flag)");
+                Console.WriteLine("--- Simple Stopwatch ---\nEscape to Exit (Spacebar to Toggle Pause / Enter for Making a Flag)");
 
                 TimeSpan elapsed = _internalStopwatch.Elapsed;
 
                 Console.SetCursorPosition(0, 1);
-                Console.WriteLine($"Elapsed: {elapsed.Hours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}.{elapsed.Milliseconds:D3}");
+                Console.WriteLine($"\nElapsed: {elapsed.Hours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}.{elapsed.Milliseconds:D3}\n------------------------");
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
@@ -238,7 +238,7 @@ namespace Clock
         public void Start()
         {
             Thread plaY = new Thread(PlayMusic);
-            Console.Write("Set timer (00:00:00 or write Esc to Exit): ");
+            Console.Write("--- Simple Timer ---\nSet timer (00:00:00 or write Esc to Exit): ");
             string Getting = Console.ReadLine();
             if (Getting != "Esc") {
                 try
@@ -271,6 +271,7 @@ namespace Clock
                         }
                         Console.WriteLine($"{Time.Hour:D2}:{Time.Minute:D2}:{Time.Second:D2}");
                         Console.WriteLine($"{DT.Hour:D2}:{DT.Minute:D2}:{DT.Second:D2}");
+                        Console.WriteLine("--------------------");
                         DT = DT.AddSeconds(1);
                         Thread.Sleep(1000);
                         Console.Clear();
@@ -310,7 +311,6 @@ namespace Clock
         static void Main(string[] args)
         {
             Start start = new Start();
-            start.Starting();
         } 
     }
 }
